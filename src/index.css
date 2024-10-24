@@ -9,7 +9,13 @@ ul {
 }
 
 .equipo {
+    display: flex;
+    flex-direction: column;
     border: 1px solid black;
+    border-radius: 15px;
+    padding: 5px;
+    width: 15vw;
+    height: 20vh;
 }
 
 .link {
@@ -39,4 +45,15 @@ ul {
 
 .link:hover {
     background-color: white;
+}
+
+.equipo img{
+    border-radius: 15px;
+    flex-basis: auto;
+    width: 100%;
+    max-height: 80%;
+}
+
+.equipo p{
+    margin: 4px;
 }

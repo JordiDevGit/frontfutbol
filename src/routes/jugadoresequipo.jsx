@@ -1,34 +1,50 @@
-import { Link } from 'react-router-dom';
-import { getJugadores } from '../services/api';
+import { Link, useParams } from 'react-router-dom';
+import { getEquipo, getJugadoresEquipo } from '../services/api';
 import { useEffect, useState } from 'react';
 
 const JugadoresEquipo = () => {
   const [jugadores, setJugadores] = useState([]);
+  const [equipo, setEquipo] = useState([{}]);
+
+  const { id } = useParams();
 
 useEffect(() => {
-  getJugadores().then((jugador) => {
-    setJugadores(jugador.data)
+  getEquipo(id).then((equipo) => {
+    setEquipo(equipo.data)
+    console.log("aaaaaa",equipo.data)
   })}, [])
+
+useEffect(() => {
+  getJugadoresEquipo(id).then((jugador) => {
+    setJugadores(jugador.data)
+})}, [])
 
   return(
     <div>  
       <div className='header'>
         <ul className='navbar'>
           <li><Link to="/" className='link'>Home</Link></li>
-          <li><Link to="/consultajugadores" className='link'>Consulta Jugadores</Link></li>
           <li><Link to="/consulta" className='link'>Consulta Equipos</Link></li>
         </ul>
-      </div>  
-      <ul>
+      </div> 
+      <div>
+        <img src={"http://localhost:8080/" + equipo.fotoEquipo} alt="" />
+        <img src={"http://localhost:8080/" + equipo.fotoEscudo} alt="" />
+      </div>
+      {
+        console.log(11111,equipo)
+      }
+      {console.log(22222,equipo.nombre)}
+      <ul>  
       {jugadores?.map((jugador) => {
                 return (
                   <li key={jugador.jugadorCod}>
-                    <h1>{jugador.jugadorCod}</h1>
                     <p>{jugador.nombre} {jugador.apellidos}</p>
                   </li>
                 )
               })}
       </ul>
+      
     </div>
   )   
 }
